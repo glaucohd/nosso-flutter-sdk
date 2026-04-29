@@ -31,6 +31,7 @@ import NossoFlutterSDK
 
 struct ContentView: View {
     @State private var isShowingSdk = false
+    // Token de autenticacao do usuario logado, por exemplo um JWT.
     private let token = "token-ios-teste"
 
     var body: some View {
