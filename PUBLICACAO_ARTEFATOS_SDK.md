@@ -37,7 +37,7 @@ Nao sobrescreva versoes antigas ja publicadas.
 Na raiz do repo:
 
 ```sh
-cd /Users/glauco/projetos/poc
+cd /Users/glauco/projetos/sdk
 ```
 
 Valide o Flutter:
@@ -52,7 +52,14 @@ cd ..
 
 ## 4. Gerar artefatos iOS
 
-Para iOS, gere os artefatos `Debug` e `Release`:
+Existem dois fluxos iOS:
+
+```text
+SPM -> scripts/update_spm_package.sh
+CocoaPods/manual -> scripts/package_ios_sdk_release.sh
+```
+
+Para CocoaPods/manual, gere os artefatos `Debug` e `Release`:
 
 ```sh
 sh scripts/package_ios_sdk_release.sh 1.0.1 all

@@ -3,10 +3,10 @@ set -e
 
 VERSION="${1:-}"
 CONFIGURATION="${2:-Debug}"
-SDK_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-REPO_ROOT="$(cd "$SDK_ROOT/.." && pwd)"
-PACKAGE_SWIFT="$REPO_ROOT/Package.swift"
-DIST_ROOT="$SDK_ROOT/build/ios-spm-release"
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PACKAGE_SWIFT="$PROJECT_ROOT/Package.swift"
+FRAMEWORKS_ROOT="$PROJECT_ROOT/build/ios-frameworks/$CONFIGURATION"
+DIST_ROOT="$PROJECT_ROOT/build/ios-spm-release"
 REPOSITORY_URL="https://github.com/glaucohd/nosso-flutter-sdk"
 
 case "$VERSION" in
@@ -24,18 +24,26 @@ case "$CONFIGURATION" in
     ;;
 esac
 
-if git -C "$REPO_ROOT" rev-parse "$VERSION" >/dev/null 2>&1; then
+if git -C "$PROJECT_ROOT" rev-parse "$VERSION" >/dev/null 2>&1; then
   echo "A tag $VERSION ja existe. Use uma nova versao para nao quebrar consumidores existentes." >&2
   exit 1
 fi
 
-"$SDK_ROOT/scripts/build_flutter_ios_frameworks.sh"
-"$SDK_ROOT/scripts/package_ios_spm_binaries.sh" "$VERSION" "$CONFIGURATION"
+cd "$PROJECT_ROOT/flutter_module"
+flutter pub get
+flutter build ios-framework --output="$PROJECT_ROOT/build/ios-frameworks"
 
 APP_ZIP="NossoFlutterSDK-App-$CONFIGURATION-$VERSION.zip"
 FLUTTER_ZIP="NossoFlutterSDK-Flutter-$CONFIGURATION-$VERSION.zip"
 APP_ZIP_PATH="$DIST_ROOT/$APP_ZIP"
 FLUTTER_ZIP_PATH="$DIST_ROOT/$FLUTTER_ZIP"
+
+mkdir -p "$DIST_ROOT"
+rm -f "$APP_ZIP_PATH" "$FLUTTER_ZIP_PATH"
+
+cd "$FRAMEWORKS_ROOT"
+/usr/bin/zip -qry "$APP_ZIP_PATH" "App.xcframework"
+/usr/bin/zip -qry "$FLUTTER_ZIP_PATH" "Flutter.xcframework"
 
 APP_CHECKSUM="$(swift package compute-checksum "$APP_ZIP_PATH")"
 FLUTTER_CHECKSUM="$(swift package compute-checksum "$FLUTTER_ZIP_PATH")"
