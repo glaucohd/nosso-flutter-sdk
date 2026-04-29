@@ -18,6 +18,49 @@ Para gerar e publicar novas versoes do SDK, ver `PUBLICACAO_ARTEFATOS_SDK.md`.
 
 Use Swift Package Manager.
 
+### 1.1. Caminho rapido
+
+No Xcode:
+
+```text
+File > Add Package Dependencies...
+https://github.com/glaucohd/nosso-flutter-sdk
+Version: 1.0.1
+Product: NossoFlutterSDK
+```
+
+Depois, no `ContentView.swift`:
+
+```swift
+import SwiftUI
+import NossoFlutterSDK
+
+struct ContentView: View {
+    @State private var isShowingSdk = false
+    private let token = "token-ios-teste"
+
+    var body: some View {
+        NavigationStack {
+            Button("Abrir SDK Flutter") {
+                NossoFlutterSDK.shared.start(authToken: token)
+                isShowingSdk = true
+            }
+            .navigationDestination(isPresented: $isShowingSdk) {
+                NossoFlutterSDKView()
+                    .ignoresSafeArea()
+                    .navigationTitle("SDK")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .navigationTitle("App iOS")
+        }
+    }
+}
+```
+
+Esse fluxo faz um push nativo para a tela do SDK.
+
+### 1.2. O que muda no projeto
+
 O consumidor mexe basicamente em:
 
 ```text
@@ -27,7 +70,7 @@ O consumidor mexe basicamente em:
 
 Nao precisa alterar `Podfile`, nao precisa baixar zip e nao precisa adicionar frameworks manualmente.
 
-### 1.1. Adicionar dependencia SPM
+### 1.3. Adicionar dependencia SPM
 
 No Xcode:
 
@@ -64,7 +107,7 @@ Arquivos que o Xcode pode alterar automaticamente:
 
 Se o projeto usa `.xcworkspace`, o `Package.resolved` pode ficar dentro do `.xcworkspace`.
 
-### 1.2. Usar no app iOS
+### 1.4. Usar no app iOS
 
 No arquivo Swift da tela ou coordinator que abre o SDK:
 
