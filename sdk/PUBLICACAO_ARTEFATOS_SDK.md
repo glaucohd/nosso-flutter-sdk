@@ -98,13 +98,30 @@ O `Package.swift` publicado deve apontar para os binarios versionados do SDK.
 
 No repo desta POC, o `Package.swift` que o SPM usa fica na raiz do repositorio, fora da pasta `sdk`, porque o Xcode espera encontrar o manifesto do pacote na raiz da URL informada.
 
+Para gerar os binarios SPM e atualizar o `Package.swift` automaticamente:
+
+```sh
+sh scripts/update_spm_package.sh 1.0.2 Debug
+```
+
+Esse comando:
+
+```text
+1. Gera os frameworks iOS.
+2. Gera os zips App/Flutter no formato esperado pelo SPM.
+3. Calcula os checksums.
+4. Atualiza o Package.swift da raiz do repo.
+```
+
+Use sempre uma versao nova. Nao rode esse comando para uma tag ja publicada, porque os checksums do `Package.swift` precisam bater exatamente com os zips anexados na release.
+
 Fluxo esperado:
 
 ```text
-1. Gerar artefato iOS.
-2. Publicar os binarios da versao.
-3. Atualizar o Package.swift.
-4. Criar tag 1.0.1 no repo SPM.
+1. Rodar scripts/update_spm_package.sh com a nova versao.
+2. Commitar o Package.swift atualizado.
+3. Criar tag da nova versao.
+4. Publicar os zips gerados na release da mesma versao.
 5. Validar no Xcode via Add Package Dependency.
 ```
 
