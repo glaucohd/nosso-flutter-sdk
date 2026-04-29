@@ -53,20 +53,9 @@ struct ContentView: View {
 
 Esse fluxo faz um push nativo para a tela do SDK.
 
-Arquivos que o Xcode pode alterar automaticamente:
+### UIKit como alternativa
 
-```text
-*.xcodeproj/project.pbxproj
-*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
-```
-
-Se o projeto usa `.xcworkspace`, o `Package.resolved` pode ficar dentro do `.xcworkspace`.
-
-## 2. Abrir o SDK no iOS
-
-O app precisa enviar o token antes de abrir a tela.
-
-### UIKit
+Se o app usa UIKit:
 
 ```swift
 import NossoFlutterSDK
@@ -77,34 +66,7 @@ let viewController = NossoFlutterSDK.shared.makeViewController()
 navigationController?.pushViewController(viewController, animated: true)
 ```
 
-### SwiftUI
-
-```swift
-import SwiftUI
-import NossoFlutterSDK
-
-struct ContentView: View {
-    @State private var isShowingSdk = false
-    let token: String
-
-    var body: some View {
-        NavigationStack {
-            Button("Abrir SDK") {
-                NossoFlutterSDK.shared.start(authToken: token)
-                isShowingSdk = true
-            }
-            .navigationDestination(isPresented: $isShowingSdk) {
-                NossoFlutterSDKView()
-                    .ignoresSafeArea()
-                    .navigationTitle("SDK")
-                    .navigationBarTitleDisplayMode(.inline)
-            }
-        }
-    }
-}
-```
-
-## 3. Android
+## 2. Android
 
 No `settings.gradle.kts`, adicione o repositorio Maven do SDK:
 
@@ -140,7 +102,7 @@ sdk.start(authToken = token)
 startActivity(sdk.createActivityIntent(this))
 ```
 
-## 4. Checklist rapido
+## 3. Checklist rapido
 
 - iOS: adicionar o pacote via Swift Package Manager.
 - Android: adicionar o repositorio Maven e a dependencia.
