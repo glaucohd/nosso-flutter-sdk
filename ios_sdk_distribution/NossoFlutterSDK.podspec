@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   s.source = {
-    :http => 'https://github.com/sua-org/nosso-flutter-sdk-ios/releases/download/1.0.0/NossoFlutterSDK-1.0.0.zip'
+    :http => 'https://github.com/glaucohd/nosso-flutter-sdk/releases/download/1.0.0/NossoFlutterSDK-1.0.0.zip'
   }
 
   s.source_files = 'Sources/NossoFlutterSDK/**/*.swift'
