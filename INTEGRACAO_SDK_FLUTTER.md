@@ -27,13 +27,13 @@ File > Add Package Dependencies...
 Informe a URL do pacote:
 
 ```text
-https://github.com/glaucohd/nosso-flutter-sdk-ios
+https://github.com/glaucohd/nosso-flutter-sdk
 ```
 
 Selecione a versao:
 
 ```text
-1.0.0
+1.0.1
 ```
 
 Selecione o produto:
@@ -123,7 +123,7 @@ No `build.gradle.kts` do app:
 
 ```kotlin
 dependencies {
-    implementation("com.glaucohd:nosso-flutter-sdk:1.0.0")
+    implementation("com.glaucohd:nosso-flutter-sdk:1.0.1")
 }
 ```
 
