@@ -1,22 +1,50 @@
-# Integracao do SDK Flutter em apps nativos
+# Integracao do NossoFlutterSDK
 
-Este documento descreve como apps nativos devem consumir o SDK.
+Este documento mostra como um app nativo consome o `NossoFlutterSDK` como dependencia versionada.
 
-O app host nao precisa conhecer a implementacao Flutter. Ele deve consumir um wrapper nativo:
+O app consumidor nao precisa conhecer Flutter, baixar zip manualmente, rodar comandos Flutter ou adicionar `Flutter.xcframework`/`App.xcframework`.
 
-- iOS: `NossoFlutterSDK`
-- Android: `NossoFlutterSDK`
+O SDK e publicado pelo nosso time nos gerenciadores nativos:
 
-O wrapper encapsula:
+```text
+iOS sem CocoaPods -> Swift Package Manager
+iOS com CocoaPods -> CocoaPods
+Android -> Maven
+```
 
-- Inicializacao do Flutter.
-- Criacao da tela Flutter.
-- Envio do token de autenticacao.
-- Comunicacao via channel.
+Para gerar e publicar novas versoes do SDK, ver `PUBLICACAO_ARTEFATOS_SDK.md`.
 
-## 1. iOS
+## 1. iOS sem CocoaPods
 
-### 1.1. App iOS com CocoaPods
+Use Swift Package Manager.
+
+No Xcode:
+
+```text
+File > Add Package Dependencies...
+```
+
+Informe a URL do pacote:
+
+```text
+https://github.com/glaucohd/nosso-flutter-sdk-ios
+```
+
+Selecione a versao:
+
+```text
+1.0.0
+```
+
+Selecione o produto:
+
+```text
+NossoFlutterSDK
+```
+
+Pronto. O Xcode/SPM baixa a versao correta do SDK automaticamente.
+
+## 2. iOS com CocoaPods
 
 No `Podfile`:
 
@@ -34,45 +62,13 @@ Depois:
 pod install
 ```
 
-Abrir o app pelo `.xcworkspace`.
+Abra o app pelo `.xcworkspace`.
 
-### 1.2. App iOS sem CocoaPods
+## 3. Abrir o SDK no iOS
 
-Adicionar os artefatos fornecidos pelo SDK no projeto:
+O app precisa enviar o token antes de abrir a tela.
 
-```text
-NossoFlutterSDK
-App.xcframework
-Flutter.xcframework
-```
-
-No Xcode:
-
-```text
-Target > General > Frameworks, Libraries, and Embedded Content
-```
-
-Configurar os frameworks como:
-
-```text
-Embed & Sign
-```
-
-Se os frameworks estiverem em uma pasta versionada, adicionar o caminho em:
-
-```text
-Target > Build Settings > Framework Search Paths
-```
-
-Exemplo:
-
-```text
-$(PROJECT_DIR)/Vendor/NossoFlutterSDK/$(CONFIGURATION)
-```
-
-### 1.3. Uso no app iOS
-
-UIKit:
+### UIKit
 
 ```swift
 import NossoFlutterSDK
@@ -83,32 +79,36 @@ let viewController = NossoFlutterSDK.shared.makeViewController()
 navigationController?.pushViewController(viewController, animated: true)
 ```
 
-SwiftUI:
+### SwiftUI
 
 ```swift
+import SwiftUI
 import NossoFlutterSDK
 
-NavigationStack {
-    Button("Abrir SDK") {
-        NossoFlutterSDK.shared.start(authToken: token)
-        isShowingSdk = true
-    }
-    .navigationDestination(isPresented: $isShowingSdk) {
-        NossoFlutterSDKView()
-            .navigationTitle("SDK")
-            .navigationBarTitleDisplayMode(.inline)
+struct ContentView: View {
+    @State private var isShowingSdk = false
+    let token: String
+
+    var body: some View {
+        Button("Abrir SDK") {
+            NossoFlutterSDK.shared.start(authToken: token)
+            isShowingSdk = true
+        }
+        .fullScreenCover(isPresented: $isShowingSdk) {
+            NossoFlutterSDKView()
+                .ignoresSafeArea()
+        }
     }
 }
 ```
 
-## 2. Android
+## 4. Android
 
-### 2.1. App Android consumindo via Maven
-
-Adicionar o repositorio onde o SDK foi publicado:
+No `settings.gradle.kts`, adicione o repositorio Maven do SDK:
 
 ```kotlin
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
@@ -119,103 +119,28 @@ dependencyResolutionManagement {
 }
 ```
 
-Adicionar a dependencia:
+No `build.gradle.kts` do app:
 
 ```kotlin
 dependencies {
-    implementation("com.empresa:nosso-flutter-sdk:1.0.0")
+    implementation("com.glaucohd:nosso-flutter-sdk:1.0.0")
 }
 ```
 
-### 2.2. Uso no app Android
-
-Inicializar no `Application` ou antes do primeiro uso:
+Abrir o SDK:
 
 ```kotlin
-NossoFlutterSDK.initialize(applicationContext)
-```
+import com.glaucohd.nossofluttersdk.NossoFlutterSDK
 
-Abrir o SDK a partir de uma `Activity`:
-
-```kotlin
 val sdk = NossoFlutterSDK.get()
 
 sdk.start(authToken = token)
 startActivity(sdk.createActivityIntent(this))
 ```
 
-## 3. Contrato de autenticacao
+## 5. Checklist rapido
 
-O app host deve enviar o token antes de abrir o SDK.
-
-iOS:
-
-```swift
-NossoFlutterSDK.shared.start(authToken: token)
-```
-
-Android:
-
-```kotlin
-NossoFlutterSDK.get().start(authToken = token)
-```
-
-O token usado deve ser o token de sessao/autenticacao do usuario logado no app host.
-
-## 4. Publicacao dos artefatos
-
-Nosso time publica os artefatos versionados do SDK.
-
-### iOS
-
-Artefatos:
-
-```text
-NossoFlutterSDK.podspec
-Package.swift
-Sources/NossoFlutterSDK
-Frameworks/App.xcframework
-Frameworks/Flutter.xcframework
-```
-
-Gerar pacote local:
-
-```sh
-sh scripts/package_ios_sdk_release.sh 1.0.0
-```
-
-Saida:
-
-```text
-build/ios-sdk-release/NossoFlutterSDK-1.0.0.zip
-```
-
-### Android
-
-Artefatos:
-
-```text
-flutter-aar-repo/
-wrapper/
-```
-
-Gerar pacote local:
-
-```sh
-sh scripts/package_android_sdk_release.sh 1.0.0
-```
-
-Saida:
-
-```text
-build/android-sdk-release/NossoFlutterSDK-Android-1.0.0.zip
-```
-
-## 5. Checklist para apps consumidores
-
-- O app chama `start(authToken:)` ou `start(authToken = ...)` antes de abrir o SDK.
-- O app navega para a tela criada pelo wrapper nativo.
-- O app nao acessa diretamente `FlutterEngine`, `FlutterViewController`, `FlutterActivity` ou `MethodChannel`.
-- iOS com CocoaPods usa `pod 'NossoFlutterSDK'`.
-- iOS sem CocoaPods adiciona os frameworks fornecidos.
-- Android usa dependencia Maven do SDK.
+- iOS sem CocoaPods: adicionar o pacote via Swift Package Manager.
+- iOS com CocoaPods: adicionar o pod no `Podfile` e rodar `pod install`.
+- Android: adicionar o repositorio Maven e a dependencia.
+- Antes de abrir o SDK, sempre enviar o token.

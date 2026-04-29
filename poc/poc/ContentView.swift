@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NossoFlutterSDK
 
 struct ContentView: View {
     let sdk: NossoFlutterSDK

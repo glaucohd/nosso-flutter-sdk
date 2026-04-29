@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NossoFlutterSDK
 
 @main
 struct pocApp: App {

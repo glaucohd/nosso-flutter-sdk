@@ -7,31 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5180F7812FA1900000B2FC0D /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5180F7852FA1900000B2FC0D /* Flutter.xcframework */; };
-		5180F7822FA1900000B2FC0D /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5180F7862FA1900000B2FC0D /* App.xcframework */; };
-		5180F7832FA1900000B2FC0D /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5180F7852FA1900000B2FC0D /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5180F7842FA1900000B2FC0D /* App.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5180F7862FA1900000B2FC0D /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5180F7902FA1A00000B2FC0D /* NossoFlutterSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5180F7922FA1A00000B2FC0D /* NossoFlutterSDK */; };
+		5180F79C2FA1B14800B2FC0D /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5180F7872FA1900000B2FC0D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5180F7832FA1900000B2FC0D /* Flutter.xcframework in Embed Frameworks */,
-				5180F7842FA1900000B2FC0D /* App.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5180F7732FA17A0800B2FC0D /* poc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poc.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5180F7852FA1900000B2FC0D /* Flutter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "Flutter/$(CONFIGURATION)/Flutter.xcframework"; sourceTree = SOURCE_ROOT; };
-		5180F7862FA1900000B2FC0D /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "Flutter/$(CONFIGURATION)/App.xcframework"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -47,8 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5180F7812FA1900000B2FC0D /* Flutter.xcframework in Frameworks */,
-				5180F7822FA1900000B2FC0D /* App.xcframework in Frameworks */,
+				5180F7902FA1A00000B2FC0D /* NossoFlutterSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,8 +38,6 @@
 		171A188633A20AF208D35E88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5180F7852FA1900000B2FC0D /* Flutter.xcframework */,
-				5180F7862FA1900000B2FC0D /* App.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -90,7 +68,6 @@
 			buildPhases = (
 				5180F76F2FA17A0800B2FC0D /* Sources */,
 				5180F7702FA17A0800B2FC0D /* Frameworks */,
-				5180F7872FA1900000B2FC0D /* Embed Frameworks */,
 				5180F7712FA17A0800B2FC0D /* Resources */,
 			);
 			buildRules = (
@@ -101,6 +78,9 @@
 				5180F7752FA17A0800B2FC0D /* poc */,
 			);
 			name = poc;
+			packageProductDependencies = (
+				5180F7922FA1A00000B2FC0D /* NossoFlutterSDK */,
+			);
 			productName = poc;
 			productReference = 5180F7732FA17A0800B2FC0D /* poc.app */;
 			productType = "com.apple.product-type.application";
@@ -129,6 +109,9 @@
 			);
 			mainGroup = 5180F76A2FA17A0800B2FC0D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5180F7912FA1A00000B2FC0D /* XCLocalSwiftPackageReference "Vendor/NossoFlutterSDK" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5180F7742FA17A0800B2FC0D /* Products */;
 			projectDirPath = "";
@@ -144,6 +127,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5180F79C2FA1B14800B2FC0D /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,10 +275,6 @@
 				DEVELOPMENT_TEAM = P22278HW6L;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter/$(CONFIGURATION)",
-				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -328,10 +308,6 @@
 				DEVELOPMENT_TEAM = P22278HW6L;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter/$(CONFIGURATION)",
-				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -377,6 +353,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5180F7912FA1A00000B2FC0D /* XCLocalSwiftPackageReference "Vendor/NossoFlutterSDK" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Vendor/NossoFlutterSDK;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5180F7922FA1A00000B2FC0D /* NossoFlutterSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5180F7912FA1A00000B2FC0D /* XCLocalSwiftPackageReference "Vendor/NossoFlutterSDK" */;
+			productName = NossoFlutterSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5180F76B2FA17A0800B2FC0D /* Project object */;
 }

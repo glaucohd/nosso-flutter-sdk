@@ -47,3 +47,6 @@ build/
 poc/Flutter/Debug/
 poc/Flutter/Profile/
 poc/Flutter/Release/
+
+# Local consumer copy of the SDK artifact used to test manual/SPM integration.
+poc/Vendor/

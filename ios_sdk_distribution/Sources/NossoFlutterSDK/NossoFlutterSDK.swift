@@ -28,8 +28,8 @@ public final class NossoFlutterSDK {
     }
 
     public func start(authToken: String) {
-        prepare()
         currentAuthToken = authToken
+        prepare()
 
         authChannel.invokeMethod("authTokenUpdated", arguments: [
             "token": authToken
