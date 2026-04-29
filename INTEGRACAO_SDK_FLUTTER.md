@@ -30,12 +30,16 @@ import NossoFlutterSDK
 
 struct ContentView: View {
     @State private var isShowingSdk = false
-    // Token de autenticacao do usuario logado, por exemplo um JWT.
+
+    // Token de autenticacao do usuario logado no app host, por exemplo um JWT.
+    // O SDK usa esse token para iniciar a sessao do usuario dentro do modulo Flutter.
     private let token = "token-ios-teste"
 
     var body: some View {
         NavigationStack {
             Button("Abrir SDK Flutter") {
+                // Primeiro envie o token para o SDK.
+                // Depois navegue para a tela Flutter.
                 NossoFlutterSDK.shared.start(authToken: token)
                 isShowingSdk = true
             }
