@@ -1,0 +1,49 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.idea/
+*.iml
+
+# Dart / Flutter
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+
+# Flutter generated module files
+flutter_module/.android/local.properties
+flutter_module/.ios/Flutter/Generated.xcconfig
+flutter_module/.ios/Flutter/flutter_export_environment.sh
+
+# Android / Gradle
+.gradle/
+**/.gradle/
+**/local.properties
+**/captures/
+**/generated/
+
+# Xcode
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.moved-aside
+*.xcscmblueprint
+*.xccheckout
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Generated SDK release artifacts
+build/
+*.zip
+
+# Generated Flutter binary artifacts in the sample host app.
+# They can be regenerated with scripts/build_flutter_ios_frameworks.sh.
+poc/Flutter/Debug/
+poc/Flutter/Profile/
+poc/Flutter/Release/
