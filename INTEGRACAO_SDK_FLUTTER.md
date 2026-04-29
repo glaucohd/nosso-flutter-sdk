@@ -2,8 +2,6 @@
 
 Este documento mostra como um app nativo consome o `NossoFlutterSDK` como dependencia versionada.
 
-O app consumidor nao precisa conhecer Flutter, baixar zip manualmente, rodar comandos Flutter ou adicionar `Flutter.xcframework`/`App.xcframework`.
-
 O SDK e publicado pelo nosso time nos gerenciadores nativos:
 
 ```text
@@ -12,20 +10,16 @@ iOS com CocoaPods -> CocoaPods
 Android -> Maven
 ```
 
-Para gerar e publicar novas versoes do SDK, ver `PUBLICACAO_ARTEFATOS_SDK.md`.
-
 ## 1. iOS sem CocoaPods
 
 Use Swift Package Manager.
-
-### 1.1. Caminho rapido
 
 No Xcode:
 
 ```text
 File > Add Package Dependencies...
 https://github.com/glaucohd/nosso-flutter-sdk
-Version: 1.0.1
+Version: usar a versao mais recente publicada, hoje 1.0.1
 Product: NossoFlutterSDK
 ```
 
@@ -59,45 +53,6 @@ struct ContentView: View {
 
 Esse fluxo faz um push nativo para a tela do SDK.
 
-### 1.2. O que muda no projeto
-
-O consumidor mexe basicamente em:
-
-```text
-1. Xcode project -> adiciona a dependencia SPM.
-2. Tela/fluxo onde abre o SDK -> importa NossoFlutterSDK e navega.
-```
-
-Nao precisa alterar `Podfile`, nao precisa baixar zip e nao precisa adicionar frameworks manualmente.
-
-### 1.3. Adicionar dependencia SPM
-
-No Xcode:
-
-```text
-File > Add Package Dependencies...
-```
-
-Informe a URL do pacote:
-
-```text
-https://github.com/glaucohd/nosso-flutter-sdk
-```
-
-Selecione a versao:
-
-```text
-1.0.1
-```
-
-Selecione o produto:
-
-```text
-NossoFlutterSDK
-```
-
-Pronto. O Xcode/SPM baixa a versao correta do SDK automaticamente.
-
 Arquivos que o Xcode pode alterar automaticamente:
 
 ```text
@@ -106,44 +61,6 @@ Arquivos que o Xcode pode alterar automaticamente:
 ```
 
 Se o projeto usa `.xcworkspace`, o `Package.resolved` pode ficar dentro do `.xcworkspace`.
-
-### 1.4. Usar no app iOS
-
-No arquivo Swift da tela ou coordinator que abre o SDK:
-
-```swift
-import NossoFlutterSDK
-```
-
-Antes de abrir a tela, envie o token:
-
-```swift
-NossoFlutterSDK.shared.start(authToken: token)
-```
-
-Depois navegue para a tela do SDK:
-
-```swift
-let viewController = NossoFlutterSDK.shared.makeViewController()
-navigationController?.pushViewController(viewController, animated: true)
-```
-
-Se o app usa SwiftUI, use `NavigationStack` para fazer push nativo para a tela do SDK:
-
-```swift
-NavigationStack {
-    Button("Abrir SDK") {
-        NossoFlutterSDK.shared.start(authToken: token)
-        isShowingSdk = true
-    }
-    .navigationDestination(isPresented: $isShowingSdk) {
-        NossoFlutterSDKView()
-            .ignoresSafeArea()
-            .navigationTitle("SDK")
-            .navigationBarTitleDisplayMode(.inline)
-    }
-}
-```
 
 ## 2. iOS com CocoaPods
 
