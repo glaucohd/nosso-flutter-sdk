@@ -4,7 +4,7 @@ set -e
 VERSION="${1:-1.0.0}"
 CONFIGURATION="${2:-Release}"
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-FRAMEWORKS_ROOT="$PROJECT_ROOT/poc/Flutter"
+FRAMEWORKS_ROOT="$PROJECT_ROOT/build/ios-frameworks"
 DIST_ROOT="$PROJECT_ROOT/build/ios-sdk-release"
 
 case "$CONFIGURATION" in

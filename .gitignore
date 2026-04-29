@@ -15,9 +15,9 @@
 build/
 
 # Flutter generated module files
-flutter_module/.android/local.properties
-flutter_module/.ios/Flutter/Generated.xcconfig
-flutter_module/.ios/Flutter/flutter_export_environment.sh
+sdk/flutter_module/.android/local.properties
+sdk/flutter_module/.ios/Flutter/Generated.xcconfig
+sdk/flutter_module/.ios/Flutter/flutter_export_environment.sh
 
 # Android / Gradle
 .gradle/
@@ -42,11 +42,9 @@ Podfile.lock
 build/
 *.zip
 
-# Generated Flutter binary artifacts in the sample host app.
-# They can be regenerated with scripts/build_flutter_ios_frameworks.sh.
-poc/Flutter/Debug/
-poc/Flutter/Profile/
-poc/Flutter/Release/
+# Generated Flutter binary artifacts.
+# They can be regenerated with sdk/scripts/build_flutter_ios_frameworks.sh.
+sdk/build/ios-frameworks/
 
-# Local consumer copy of the SDK artifact used to test manual/SPM integration.
-poc/Vendor/
+# Local consumer copies of SDK artifacts.
+**/Vendor/

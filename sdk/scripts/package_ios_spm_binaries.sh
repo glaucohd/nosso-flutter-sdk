@@ -4,7 +4,7 @@ set -e
 VERSION="${1:-1.0.0}"
 CONFIGURATION="${2:-Debug}"
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-FRAMEWORKS_ROOT="$PROJECT_ROOT/poc/Flutter/$CONFIGURATION"
+FRAMEWORKS_ROOT="$PROJECT_ROOT/build/ios-frameworks/$CONFIGURATION"
 DIST_ROOT="$PROJECT_ROOT/build/ios-spm-release"
 
 case "$CONFIGURATION" in
@@ -17,7 +17,7 @@ esac
 
 if [ ! -d "$FRAMEWORKS_ROOT/App.xcframework" ] || [ ! -d "$FRAMEWORKS_ROOT/Flutter.xcframework" ]; then
   echo "Frameworks nao encontrados em $FRAMEWORKS_ROOT" >&2
-  echo "Rode primeiro: flutter build ios-framework --output=\"$PROJECT_ROOT/poc/Flutter\"" >&2
+  echo "Rode primeiro: flutter build ios-framework --output=\"$PROJECT_ROOT/build/ios-frameworks\"" >&2
   exit 1
 fi
 
