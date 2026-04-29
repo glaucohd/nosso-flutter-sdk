@@ -5,12 +5,11 @@ Este documento mostra como um app nativo consome o `NossoFlutterSDK` como depend
 O SDK e publicado pelo nosso time nos gerenciadores nativos:
 
 ```text
-iOS sem CocoaPods -> Swift Package Manager
-iOS com CocoaPods -> CocoaPods
+iOS -> Swift Package Manager
 Android -> Maven
 ```
 
-## 1. iOS sem CocoaPods
+## 1. iOS
 
 Use Swift Package Manager.
 
@@ -63,27 +62,7 @@ Arquivos que o Xcode pode alterar automaticamente:
 
 Se o projeto usa `.xcworkspace`, o `Package.resolved` pode ficar dentro do `.xcworkspace`.
 
-## 2. iOS com CocoaPods
-
-No `Podfile`:
-
-```ruby
-target 'AppHost' do
-  use_frameworks!
-
-  pod 'NossoFlutterSDK', '~> 1.0'
-end
-```
-
-Depois:
-
-```sh
-pod install
-```
-
-Abra o app pelo `.xcworkspace`.
-
-## 3. Abrir o SDK no iOS
+## 2. Abrir o SDK no iOS
 
 O app precisa enviar o token antes de abrir a tela.
 
@@ -125,7 +104,7 @@ struct ContentView: View {
 }
 ```
 
-## 4. Android
+## 3. Android
 
 No `settings.gradle.kts`, adicione o repositorio Maven do SDK:
 
@@ -161,9 +140,8 @@ sdk.start(authToken = token)
 startActivity(sdk.createActivityIntent(this))
 ```
 
-## 5. Checklist rapido
+## 4. Checklist rapido
 
-- iOS sem CocoaPods: adicionar o pacote via Swift Package Manager.
-- iOS com CocoaPods: adicionar o pod no `Podfile` e rodar `pod install`.
+- iOS: adicionar o pacote via Swift Package Manager.
 - Android: adicionar o repositorio Maven e a dependencia.
 - Antes de abrir o SDK, sempre enviar o token.
