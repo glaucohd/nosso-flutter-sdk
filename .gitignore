@@ -4,6 +4,7 @@
 # Editor / IDE
 .idea/
 *.iml
+.swiftpm/
 
 # Dart / Flutter
 .dart_tool/
@@ -15,9 +16,9 @@
 build/
 
 # Flutter generated module files
-sdk/flutter_module/.android/local.properties
-sdk/flutter_module/.ios/Flutter/Generated.xcconfig
-sdk/flutter_module/.ios/Flutter/flutter_export_environment.sh
+flutter_module/.android/local.properties
+flutter_module/.ios/Flutter/Generated.xcconfig
+flutter_module/.ios/Flutter/flutter_export_environment.sh
 
 # Android / Gradle
 .gradle/
@@ -43,8 +44,8 @@ build/
 *.zip
 
 # Generated Flutter binary artifacts.
-# They can be regenerated with sdk/scripts/build_flutter_ios_frameworks.sh.
-sdk/build/ios-frameworks/
+# They can be regenerated with scripts/build_flutter_ios_frameworks.sh.
+build/ios-frameworks/
 
 # Local consumer copies of SDK artifacts.
 **/Vendor/

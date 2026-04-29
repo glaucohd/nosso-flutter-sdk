@@ -30,7 +30,7 @@ let package = Package(
                 "Flutter",
                 "App"
             ],
-            path: "sdk/ios_sdk_distribution/Sources/NossoFlutterSDK"
+            path: "ios_sdk_distribution/Sources/NossoFlutterSDK"
         )
     ]
 )

@@ -37,7 +37,7 @@ Nao sobrescreva versoes antigas ja publicadas.
 Na raiz do repo:
 
 ```sh
-cd /Users/glauco/projetos/poc/sdk
+cd /Users/glauco/projetos/poc
 ```
 
 Valide o Flutter:
@@ -95,8 +95,6 @@ Versao:
 ```
 
 O `Package.swift` publicado deve apontar para os binarios versionados do SDK.
-
-No repo desta POC, o `Package.swift` que o SPM usa fica na raiz do repositorio, fora da pasta `sdk`, porque o Xcode espera encontrar o manifesto do pacote na raiz da URL informada.
 
 Para gerar os binarios SPM e atualizar o `Package.swift` automaticamente:
 
