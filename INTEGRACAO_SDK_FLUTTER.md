@@ -18,6 +18,17 @@ Para gerar e publicar novas versoes do SDK, ver `PUBLICACAO_ARTEFATOS_SDK.md`.
 
 Use Swift Package Manager.
 
+O consumidor mexe basicamente em:
+
+```text
+1. Xcode project -> adiciona a dependencia SPM.
+2. Tela/fluxo onde abre o SDK -> importa NossoFlutterSDK e navega.
+```
+
+Nao precisa alterar `Podfile`, nao precisa baixar zip e nao precisa adicionar frameworks manualmente.
+
+### 1.1. Adicionar dependencia SPM
+
 No Xcode:
 
 ```text
@@ -43,6 +54,45 @@ NossoFlutterSDK
 ```
 
 Pronto. O Xcode/SPM baixa a versao correta do SDK automaticamente.
+
+Arquivos que o Xcode pode alterar automaticamente:
+
+```text
+*.xcodeproj/project.pbxproj
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+```
+
+Se o projeto usa `.xcworkspace`, o `Package.resolved` pode ficar dentro do `.xcworkspace`.
+
+### 1.2. Usar no app iOS
+
+No arquivo Swift da tela ou coordinator que abre o SDK:
+
+```swift
+import NossoFlutterSDK
+```
+
+Antes de abrir a tela, envie o token:
+
+```swift
+NossoFlutterSDK.shared.start(authToken: token)
+```
+
+Depois navegue para a tela do SDK:
+
+```swift
+let viewController = NossoFlutterSDK.shared.makeViewController()
+navigationController?.pushViewController(viewController, animated: true)
+```
+
+Se o app usa SwiftUI:
+
+```swift
+.fullScreenCover(isPresented: $isShowingSdk) {
+    NossoFlutterSDKView()
+        .ignoresSafeArea()
+}
+```
 
 ## 2. iOS com CocoaPods
 
