@@ -85,12 +85,20 @@ let viewController = NossoFlutterSDK.shared.makeViewController()
 navigationController?.pushViewController(viewController, animated: true)
 ```
 
-Se o app usa SwiftUI:
+Se o app usa SwiftUI, use `NavigationStack` para fazer push nativo para a tela do SDK:
 
 ```swift
-.fullScreenCover(isPresented: $isShowingSdk) {
-    NossoFlutterSDKView()
-        .ignoresSafeArea()
+NavigationStack {
+    Button("Abrir SDK") {
+        NossoFlutterSDK.shared.start(authToken: token)
+        isShowingSdk = true
+    }
+    .navigationDestination(isPresented: $isShowingSdk) {
+        NossoFlutterSDKView()
+            .ignoresSafeArea()
+            .navigationTitle("SDK")
+            .navigationBarTitleDisplayMode(.inline)
+    }
 }
 ```
 
@@ -140,13 +148,17 @@ struct ContentView: View {
     let token: String
 
     var body: some View {
-        Button("Abrir SDK") {
-            NossoFlutterSDK.shared.start(authToken: token)
-            isShowingSdk = true
-        }
-        .fullScreenCover(isPresented: $isShowingSdk) {
-            NossoFlutterSDKView()
-                .ignoresSafeArea()
+        NavigationStack {
+            Button("Abrir SDK") {
+                NossoFlutterSDK.shared.start(authToken: token)
+                isShowingSdk = true
+            }
+            .navigationDestination(isPresented: $isShowingSdk) {
+                NossoFlutterSDKView()
+                    .ignoresSafeArea()
+                    .navigationTitle("SDK")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
         }
     }
 }
